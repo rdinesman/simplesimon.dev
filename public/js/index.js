@@ -1,3 +1,4 @@
+////////////////////////////////////////////////////////
 // Button CONSTRUCTOR AND PROTOTYPE ////////////////////
 	var Button = function(ref){
 		this.ref = document.getElementById(ref);
@@ -13,15 +14,16 @@
 			this.ref.style["opacity"] = .5;	
 		},
 
-		flash: function(){
+		flash: function(flashTime){
 			var button = this;
 			button.select();
 			var delay = 600;
 			var flashTimeout = setTimeout( function () {
 				button.unselect();
-			}, delay);
+			}, flashTime);
 		}
 	};
+//                                                    //
 // GLOBAL VARIABLES ////////////////////////////////////
 	var button_tl = new Button("button_tl")
 	var button_tr = new Button("button_tr")
@@ -38,13 +40,13 @@
 	var playChoices = [];
 	var turn = 0;
 	var validInput = true;
+//                                                    //
 // BODY ////////////////////////////////////////////////
 	toggle.addEventListener("click", startGame, false);
 	for (var i = 0; i < buttons.length; i++){
 		buttons[i].ref.addEventListener("click", clickFlash, false);
 	}
-
-	
+//                                                    //
 // GLOBAL FUNCTIONS ////////////////////////////////////
 	function flash(button){
 		// console.log("flash");
@@ -56,7 +58,7 @@
 	}
 
 	function clickFlash(event){
-		buttons[this.value].flash(); 
+		buttons[this.value].flash(100); 
 		if (validInput){
 			playChoices.push(buttons[this.value]);
 		};
@@ -65,7 +67,7 @@
 
 	function loop(element, index, array){
 		// flash(element);
-		element.flash();
+		element.flash(600);
 	}
 
 	function addAndFlash(event){
@@ -83,7 +85,7 @@
 				clearInterval(choiceLoop);
 			}
 			else{
-				choices[i].flash();
+				choices[i].flash(600);
 				i++;
 			}
 		}, interval);
@@ -120,19 +122,26 @@
 		turn++;
 		document.getElementById("turn").innerHTML = "This is turn: " + turn;
 		var time = 5000 + (choices.length * 1000);
-			var gameTimeout = setInterval(function() {
-				console.log("time: " + time);
-				console.log("choices: " + choices);
-				console.log("playChoices: " + playChoices);
-				if (!check()){
-					alert("You Lose");
-					running = false;
-					clearInterval(gameTimeout);
-				}
-				else{
-					clearInterval(gameTimeout);
-					gameLoop();
-				}
-				
-			}, time);
+		var gameTimeout = setTimeout(function() {
+			alert("You lose!");
+			running = false;
+			clearInterval(checkInterval)
+			
+		}, time);
+			
+		var checkInterval = setInterval(function(){
+			if (check()){
+				clearTimeout(gameTimeout);
+				clearInterval(checkInterval);
+				gameLoop();
+			}
+			else if (choices.length < playChoices.length){
+				alert("You Lose");
+				running = false;
+				clearTimeout(gameTimeout);
+				clearInterval(checkInterval);
+
+			}
+		}, 1);
 	}
+////////////////////////////////////////////////////////
