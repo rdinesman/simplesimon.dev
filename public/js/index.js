@@ -31,41 +31,18 @@
 	var buttons = [
 		button_tl, button_tr, button_bl, button_br  
 	];
-
 	var toggle = document.getElementById('startStop');
 
-	var cont = true;
+	var running = false;
 	var choices = [];
-	var test = 0;
-	var num;
-	var count;
+	var playChoices = [];
+	var turn = 0;
+	var validInput = true;
 // BODY ////////////////////////////////////////////////
-	// buttons.forEach(loop);
-	toggle.addEventListener("click", toggleLoop, false);
+	toggle.addEventListener("click", startGame, false);
 	for (var i = 0; i < buttons.length; i++){
 		buttons[i].ref.addEventListener("click", clickFlash, false);
 	}
-
-	// choices = [button_tl, button_tr, button_bl, button_br, button_tl, button_tr, button_bl, button_br];
-	var intervalIter = 1;
-	var interval = 3000;
-	// var gameLoop = setInterval(function(){
-	// 	if (intervalIter >= 10){
-	// 		console.log("Loop done");
-	// 		clearInterval(gameLoop);
-	// 		console.log("Final choice flash");
-	// 		flashChoices(choices);
-	// 		console.log(choices);
-	// 	}
-	// 	else{
-	// 		choices.push(buttons[Math.round(Math.random() * 3)]);
-	// 		console.log("Flashing choice round " + intervalIter);
-	// 		flashChoices(choices);
-	// 		interval *= intervalIter;
-	// 		intervalIter++;	
-	// 		console.log("Interval: " + interval);
-	// 	}
-	// }, interval)
 
 	
 // GLOBAL FUNCTIONS ////////////////////////////////////
@@ -79,7 +56,10 @@
 	}
 
 	function clickFlash(event){
-		buttons[this.value].flash();
+		buttons[this.value].flash(); 
+		if (validInput){
+			playChoices.push(buttons[this.value]);
+		};
 	}
 
 
@@ -88,9 +68,8 @@
 		element.flash();
 	}
 
-	function toggleLoop(event){
-		cont = !cont;
-		console.log("Cont: " + cont);
+	function addAndFlash(event){
+		validInput = false;
 		choices.push(buttons[Math.round(Math.random() * 3)]);
 		flashChoices(choices);
 	}
@@ -100,46 +79,60 @@
 		var interval = 1000;
 		var choiceLoop = setInterval(function(){
 			if (i >= choices.length){
-				// console.log("Loop done");
+				validInput = true;
 				clearInterval(choiceLoop);
 			}
 			else{
 				choices[i].flash();
-				// console.log("Flashing " + i);
 				i++;
 			}
 		}, interval);
 	}
 
-	function gameLoopInterval(intervalIter, interval){
-		choices.push(buttons[Math.round(Math.random() * 3)]);
-		console.log("Flashing choice round " + intervalIter);
-		flashChoices(choices);
-		interval *= intervalIter;
-		intervalIter++;	
-		console.log("Interval: " + interval);
+	function check(){
+		if (choices.length != playChoices.length){
+			return false;
+		}
+		else{
+			for (var i = 0; i < choices.length; i++){
+				if (choices[i] != playChoices[i]){
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
-// TRASH 
-	// while(cont != 'n'){
-	// 	num = Math.round(Math.random() * 3);
-	// 	choices.push(buttons[num]);
-	// 	// console.log(num);
-	// 	// console.log(buttons[num]);
-	// 	// console.log(choices);
-		
+	function startGame(event){
+		if (!running){
+			running = true;
+			turn = 0;
+			choices = [];
+			playChoices = [];
+			gameLoop();
+		}
+	}
 
-	// 	function loop(element, index, array){
-	// 		// console.log(element);
-	// 		var loopTime = setTimeout(function(){
-	// 			console.log(element);
-	// 			flash(element);
-	// 		}, 1500 * (index + 1));
-	// 	}
-	// 	choices.forEach(loop);
-
-	// 	var promptDelay = setTimeout(function(){
-	// 		cont = prompt("Cont?");
-	// 	}, 1500 * (choices.length + 2));
-		
-	// }
+	function gameLoop(){
+		console.log("Starting game loop");
+		addAndFlash();
+		playChoices = [];
+		turn++;
+		document.getElementById("turn").innerHTML = "This is turn: " + turn;
+		var time = 5000 + (choices.length * 1000);
+			var gameTimeout = setInterval(function() {
+				console.log("time: " + time);
+				console.log("choices: " + choices);
+				console.log("playChoices: " + playChoices);
+				if (!check()){
+					alert("You Lose");
+					running = false;
+					clearInterval(gameTimeout);
+				}
+				else{
+					clearInterval(gameTimeout);
+					gameLoop();
+				}
+				
+			}, time);
+	}

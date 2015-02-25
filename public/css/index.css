@@ -11,9 +11,9 @@ body
 	background: url("../img/chrome.png");
 }
 
-#header
+h1
 {
-	margin-left: 38%;
+	text-align: center;
 }
 
 .tile
@@ -29,6 +29,7 @@ body
 #button_tl
 {
 	background-color: red;
+	box-shadow: 5px, 5px, 5px, black;
 }
 
 #button_tr

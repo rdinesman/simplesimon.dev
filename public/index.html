@@ -4,37 +4,42 @@
 	<link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
 <body>
-	<h1 id = "header">
-		Welcome to Simple Simon!
-	</h1>
-	<div id = "game_box" >
-		<div id = "top_left" class = "tile">
-			<button id = "button_tl" value = 0>
+	<div id = "container">
+		<h1 id = "header">
+			Welcome to Simple Simon!
+		</h1>
+		<div id = "game_box" >
+			<div id = "top_left" class = "tile">
+				<button id = "button_tl" value = 0>
 
-			</button>
+				</button>
+			</div>
+
+			<div id = "top_right" class = "tile">
+				<button id = "button_tr" value = 1>
+
+				</button>
+			</div>
+
+			<div id = "bot_left" class = "tile">
+				<button id = "button_bl" value = 2>
+
+				</button>
+			</div>
+
+			<div id = "bot_right" class = "tile">
+				<button id = "button_br" value = 3>
+
+				</button>
+			</div>
 		</div>
-
-		<div id = "top_right" class = "tile">
-			<button id = "button_tr" value = 1>
-
-			</button>
-		</div>
-
-		<div id = "bot_left" class = "tile">
-			<button id = "button_bl" value = 2>
-
-			</button>
-		</div>
-
-		<div id = "bot_right" class = "tile">
-			<button id = "button_br" value = 3>
-
-			</button>
-		</div>
+		<h1 id = "turn">
+			This is turn: 0
+		</h1>
+		<button id="startStop">
+			start/Stop
+		</button>
 	</div>
-	<button id="startStop">
-		start/Stop
-	</button>
 	<script type="text/javascript" src = "/js/index.js"></script>
 </body>
 </html>
