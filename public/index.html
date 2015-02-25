@@ -9,36 +9,41 @@
 			Welcome to Simple Simon!
 		</h1>
 		<div id = "game_box" >
-			<div id = "top_left" class = "tile">
-				<button id = "button_tl" value = 0>
+			<div id = "buttons">
+				<div id = "top_left" class = "tile tl">
+					<button id = "button_tl" class = "tl" value = 0>
 
-				</button>
-			</div>
+					</button>
+				</div>
 
-			<div id = "top_right" class = "tile">
-				<button id = "button_tr" value = 1>
+				<div id = "top_right" class = "tile tr">
+					<button id = "button_tr" class = "tr" value = 1>
 
-				</button>
-			</div>
+					</button>
+				</div>
+				
+				<div id = "bot_left" class = "tile bl">
+					<button id = "button_bl" class = "bl" value = 2>
 
-			<div id = "bot_left" class = "tile">
-				<button id = "button_bl" value = 2>
+					</button>
+				</div>
 
-				</button>
-			</div>
+				<div id = "bot_right" class = "tile br">
+					<button id = "button_br" class = "br" value = 3>
 
-			<div id = "bot_right" class = "tile">
-				<button id = "button_br" value = 3>
+					</button>
+				</div>
 
+				<button id="startStop">
+					<p id = "startStop-text">
+						start/Stop
+					</p>
 				</button>
 			</div>
 		</div>
 		<h1 id = "turn">
 			This is turn: 0
 		</h1>
-		<button id="startStop">
-			start/Stop
-		</button>
 	</div>
 	<script type="text/javascript" src = "/js/index.js"></script>
 </body>

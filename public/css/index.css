@@ -4,11 +4,15 @@ body
 }
 #game_box
 {
-	height: 520px;
-	width: 520px;
+	height: 560px;
+	width: 560px;
 	border: solid black 5px;
 	margin: auto;
 	background: url("../img/chrome.png");
+	border-top-left-radius: 20%;
+	border-top-right-radius: 20%;
+	border-bottom-left-radius: 20%;
+	border-bottom-right-radius: 20%;
 }
 
 h1
@@ -16,11 +20,16 @@ h1
 	text-align: center;
 }
 
+#buttons{
+	margin-left: 20px;
+	margin-top: 20px;
+}
+
 .tile
 {
 	height: 250px;
 	width: 250px;
-	border: solid black 2px;
+	border: solid black 3px;
 	margin: 3px;
 	float: left;
 	background-color: white;
@@ -29,7 +38,11 @@ h1
 #button_tl
 {
 	background-color: red;
-	box-shadow: 5px, 5px, 5px, black;
+}
+
+.tl{
+	border-top-left-radius: 75%;
+	border-bottom-right-radius: 30%;
 }
 
 #button_tr
@@ -37,9 +50,19 @@ h1
 	background-color: blue;
 }
 
+.tr{
+	border-top-right-radius: 75%;
+	border-bottom-left-radius: 30%;
+}
+
 #button_bl
 {
 	background-color: green;
+}
+
+.bl{
+	border-bottom-left-radius: 75%;
+	border-top-right-radius: 30%;
 }
 
 #button_br
@@ -47,15 +70,28 @@ h1
 	background-color: yellow;	
 }
 
+.br{
+	border-bottom-right-radius: 75%;
+	border-top-left-radius: 30%;
+}
+
+
+#startStop{
+	width: 70px;
+	height: 70px;
+	transform: rotate(45deg);
+	position: relative;
+	left: 228px;
+	bottom: 298px;
+	opacity: 1;
+}
+
+#startStop-text{
+	transform: rotate(-45deg);
+}
 button
 {
-	/*height: 250px;
-	width: 250px; 
-	border: solid black 1px;*/
 	height: 250px;
 	width: 250px;
-	/*border: solid black 3px;*/
-	/*margin: 5px;*/
-	/*float: left;*/
 	opacity: .5;
 }
